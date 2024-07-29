@@ -7,7 +7,7 @@ import Cart from "./assets/cart.svg?react";
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex justify-between items-center px-40 h-24 bg-gradient-to-r from-sky-300 to-sky-200 shadow-inner font-semibold">
+      <div className="flex justify-between items-center px-40 h-24 bg-gradient-to-r from-sky-300 to-sky-200 shadow-inner font-semibold sticky top-0">
         <Link to="/" className="text-5xl font-roboto text-slate-700">
           Shopper
         </Link>
