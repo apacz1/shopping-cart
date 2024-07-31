@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Cart from "./assets/cart.svg?react";
+import { CartProvider } from "./components/CartContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex justify-between items-center px-40 h-24 bg-gradient-to-r from-sky-300 to-sky-200 shadow-inner font-semibold sticky top-0">
+      <div className="sticky top-0 z-50 flex justify-between items-center px-40 h-24 bg-gradient-to-r from-sky-300 to-sky-200 shadow-inner font-semibold">
         <Link to="/" className="text-5xl font-roboto text-slate-700">
           Shopper
         </Link>
@@ -23,17 +24,19 @@ function App() {
           </Link>
         </div>
       </div>
-      <Routes>
-        {routes.map((route) => {
-          return (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={route.component}
-            ></Route>
-          );
-        })}
-      </Routes>
+      <CartProvider>
+        <Routes>
+          {routes.map((route) => {
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={route.component}
+              ></Route>
+            );
+          })}
+        </Routes>
+      </CartProvider>
     </BrowserRouter>
   );
 }

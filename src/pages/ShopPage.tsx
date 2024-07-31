@@ -1,10 +1,12 @@
-import Card from "../components/CardItem";
+import Products from "../components/Products";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Item } from "../types/types";
+import { useCart } from "../components/CartContext";
 
 export default function ShopPage() {
   const [data, setData] = useState<Item[]>([]);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     async function getData() {
@@ -20,18 +22,5 @@ export default function ShopPage() {
     getData();
   }, []);
 
-  return (
-    <div className="h-[calc(100vh-96px)] bg-neutral-100">
-      {data.map((item) => {
-        return (
-          <Card
-            key={item.id}
-            name={item.title}
-            url={item.image}
-            price={`${item.price}$`}
-          />
-        );
-      })}
-    </div>
-  );
+  return <Products data={data} addToCart={addToCart} />;
 }

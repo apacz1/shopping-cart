@@ -15,3 +15,13 @@ export type Item = {
     count: number;
   };
 };
+
+export type CartItem = {
+  itemName: string;
+  price: number;
+};
+
+export type CartContextType = {
+  cart: CartItem[];
+  addToCart: (item: Item) => void;
+};
