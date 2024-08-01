@@ -5,8 +5,11 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  html,
+  body {
     font-family: "Roboto";
+    --tw-bg-opacity: 1;
+    background-color: rgb(245 245 245 / var(--tw-bg-opacity)) /* #f5f5f5 */;
   }
 }
 

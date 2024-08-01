@@ -11,10 +11,16 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   const addToCart = (item: Item) => {
     setCart((prevCart) => [
       ...prevCart,
-      { itemName: item.title, price: item.price },
+      {
+        itemName: item.title,
+        price: item.price,
+        img: item.image,
+        id: item.id,
+        quantity: 1,
+      },
     ]);
-    console.log(cart);
   };
+  console.log(cart);
 
   return (
     <CartContext.Provider value={{ cart, addToCart }}>

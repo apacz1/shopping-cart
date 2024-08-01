@@ -17,8 +17,11 @@ export type Item = {
 };
 
 export type CartItem = {
+  id: number;
   itemName: string;
   price: number;
+  img: string;
+  quantity: number;
 };
 
 export type CartContextType = {
