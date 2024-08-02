@@ -1,11 +1,7 @@
 import { Item } from "../types/types";
-export default function Products({
-  data,
-  addToCart,
-}: {
-  data: Item[];
-  addToCart: (item: Item) => void;
-}) {
+import { useCart } from "./CartContext";
+export default function Products({ data }: { data: Item[] }) {
+  const { addToCart } = useCart();
   return (
     <div className="bg-neutral-100">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -15,7 +11,6 @@ export default function Products({
               <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:h-80">
                 <img
                   src={product.image}
-                  alt={product.title}
                   className="h-full w-full object-contain object-center lg:h-full lg:w-full bg-white"
                 />
               </div>

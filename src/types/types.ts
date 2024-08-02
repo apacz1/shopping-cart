@@ -16,15 +16,11 @@ export type Item = {
   };
 };
 
-export type CartItem = {
-  id: number;
-  itemName: string;
-  price: number;
-  img: string;
-  quantity: number;
-};
+export type CartItem = Item & { quantity: number };
 
 export type CartContextType = {
   cart: CartItem[];
   addToCart: (item: Item) => void;
+  increaseQuantity: (cartItem: CartItem) => void;
+  decreaseQuantity: (cartItem: CartItem) => void;
 };

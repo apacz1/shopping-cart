@@ -9,21 +9,46 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const addToCart = (item: Item) => {
-    setCart((prevCart) => [
-      ...prevCart,
-      {
-        itemName: item.title,
-        price: item.price,
-        img: item.image,
-        id: item.id,
-        quantity: 1,
-      },
-    ]);
+    const duplicatedItem = cart.find((tempItem) => item.id === tempItem.id);
+    duplicatedItem
+      ? increaseQuantity(duplicatedItem)
+      : setCart((prevCart) => [
+          ...prevCart,
+          {
+            ...item,
+            quantity: 1,
+          },
+        ]);
   };
-  console.log(cart);
+
+  const increaseQuantity = (cartItem: CartItem) => {
+    setCart((prevCart) => {
+      return prevCart.map((item) => {
+        const updatedCartItem =
+          item.id === cartItem.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : { ...item };
+        return updatedCartItem;
+      });
+    });
+  };
+
+  const decreaseQuantity = (cartItem: CartItem) => {
+    setCart((prevCart) =>
+      prevCart
+        .filter((item) => item.id !== cartItem.id || item.quantity > 1)
+        .map((item) =>
+          item.id === cartItem.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+    );
+  };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, increaseQuantity, decreaseQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );
