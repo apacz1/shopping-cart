@@ -1,15 +1,33 @@
 import { useCart } from "../components/CartContext";
+import { Link } from "react-router-dom";
 
 export default function CartPage() {
   const { cart, decreaseQuantity, increaseQuantity } = useCart();
+  let tempTotal: number = 0;
+  const addTotal = () => {
+    cart.forEach(
+      (item) => (tempTotal = tempTotal + item.quantity * item.price)
+    );
+    return tempTotal;
+  };
+  const total = addTotal();
 
   return (
     <div className="flex justify-center pt-24">
-      <ul role="list" className="divide-y divide-sky-300 w-1/2">
-        {cart.length === 0 ? (
-          <h1>Cart is empty!</h1>
-        ) : (
-          cart.map((item) => (
+      {cart.length === 0 ? (
+        <div className="flex flex-col justify-center  pt-24">
+          <h1 className="text-2xl">
+            Your cart is currenly empty. Start by adding items to the cart.
+          </h1>
+          <Link to="/shop" className="text-center p-2">
+            <button className="text-slate-700 text-2xl rounded-md border-2 p-2 hover:border-slate-700">
+              SHOP NOW
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <ul role="list" className="divide-y divide-sky-300 w-1/2">
+          {cart.map((item) => (
             <li key={item.id} className="flex justify-between gap-x-6 py-5">
               <div className="flex min-w-0 gap-x-4">
                 <img
@@ -43,9 +61,10 @@ export default function CartPage() {
                 </button>
               </div>
             </li>
-          ))
-        )}
-      </ul>
+          ))}
+          <div className="text-right text-2xl">Total: {total.toFixed(2)}$</div>
+        </ul>
+      )}
     </div>
   );
 }
